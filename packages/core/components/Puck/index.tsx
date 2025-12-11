@@ -89,6 +89,9 @@ type PuckProps<
   UserConfig extends Config = Config,
   G extends UserGenerics<UserConfig> = UserGenerics<UserConfig>
 > = {
+  hotkeys?: {
+    enabled: boolean;
+  },
   children?: ReactNode;
   config: UserConfig;
   data: Partial<G["UserData"] | Data>;
@@ -153,6 +156,7 @@ function PuckProvider<
     metadata,
     onAction,
     fieldTransforms,
+    hotkeys = { enabled: true },
   } = usePropsContext();
 
   const iframe: IframeConfig = useMemo(
@@ -319,6 +323,7 @@ function PuckProvider<
         onAction,
         metadata,
         fieldTransforms: loadedFieldTransforms,
+        hotkeys,
       };
     },
     [
@@ -331,6 +336,7 @@ function PuckProvider<
       onAction,
       metadata,
       loadedFieldTransforms,
+      hotkeys,
     ]
   );
 
@@ -420,6 +426,7 @@ function PuckLayout<
   const rightSideBarVisible = useAppStore(
     (s) => s.state.ui.rightSideBarVisible
   );
+  const enabledHotkeys = useAppStore((s) => s.hotkeys.enabled);
 
   const {
     width: leftWidth,
@@ -486,12 +493,11 @@ function PuckLayout<
     if (ready && iframe.enabled) {
       const frameDoc = getFrame();
 
-      if (frameDoc) {
+      if (frameDoc && enabledHotkeys) {
         return monitorHotkeys(frameDoc);
       }
     }
-  }, [ready, iframe.enabled]);
-
+  }, [ready, iframe.enabled, enabledHotkeys]);
   usePreviewModeHotkeys();
 
   const layoutOptions: Record<string, any> = {};
