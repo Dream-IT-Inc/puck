@@ -4,16 +4,16 @@ import { getClassNameFactory } from "@/core/lib";
 import { Section } from "../../components/Section";
 import { WithLayout, withLayout } from "../../components/Layout";
 
-const getClassName = getClassNameFactory("Flex", styles);
+const getClassName = getClassNameFactory("CustomFlex", styles);
 
-export type FlexProps = WithLayout<{
+export type CustomFlexProps = WithLayout<{
   justifyContent: "start" | "center" | "end";
   direction: "row" | "column";
   gap: number;
   wrap: "wrap" | "nowrap";
 }>;
 
-const FlexInternal: ComponentConfig<FlexProps> = {
+const CustomFlexInternal: ComponentConfig<CustomFlexProps> = {
   fields: {
     direction: {
       label: "Direction",
@@ -60,10 +60,19 @@ const FlexInternal: ComponentConfig<FlexProps> = {
       <Section style={{ height: "100%" }}>
         {puck.renderDropZone({
           zone: "items",
+          overrideItem(item) {
+            return {
+              ...item,
+              props: {
+                ...item.props,
+                text: "Mantap",
+              },
+            };
+          },
         })}
       </Section>
     );
   },
 };
 
-export const Flex = withLayout(FlexInternal);
+export const CustomFlex = withLayout(CustomFlexInternal);

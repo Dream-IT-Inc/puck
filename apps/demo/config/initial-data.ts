@@ -2,6 +2,11 @@ import { UserData } from "./types";
 
 export const initialData: Record<string, UserData> = {
   "/": {
+    root: {
+      props: {
+        title: "Puck Example",
+      },
+    },
     content: [
       {
         type: "Hero",
@@ -14,7 +19,11 @@ export const initialData: Record<string, UserData> = {
               label: "Visit GitHub",
               href: "https://github.com/measuredco/puck",
             },
-            { label: "Edit this page", href: "/edit", variant: "secondary" },
+            {
+              label: "Edit this page",
+              href: "/edit",
+              variant: "secondary",
+            },
           ],
           id: "Hero-1687283596554",
           image: {
@@ -25,7 +34,26 @@ export const initialData: Record<string, UserData> = {
           padding: "128px",
           align: "left",
         },
-        readOnly: { title: false, description: false },
+        readOnly: {
+          title: false,
+          description: false,
+        },
+      },
+      {
+        type: "CustomFlex",
+        props: {
+          justifyContent: "start",
+          direction: "row",
+          gap: 24,
+          wrap: "wrap",
+          layout: {
+            spanCol: 1,
+            spanRow: 1,
+            padding: "0px",
+            grow: true,
+          },
+          id: "CustomFlex-e43ec132-8a64-4db6-a602-39b781f996ba",
+        },
       },
       {
         type: "Space",
@@ -41,7 +69,9 @@ export const initialData: Record<string, UserData> = {
           align: "center",
           level: "2",
           text: "Drag-and-drop your own React components",
-          layout: { padding: "0px" },
+          layout: {
+            padding: "0px",
+          },
           size: "xxl",
           id: "Heading-1687297593514",
         },
@@ -59,7 +89,9 @@ export const initialData: Record<string, UserData> = {
         props: {
           align: "center",
           text: "Configure Puck with your own components to make change for your marketing pages without a developer.",
-          layout: { padding: "0px" },
+          layout: {
+            padding: "0px",
+          },
           size: "m",
           id: "Text-1687297621556",
           color: "muted",
@@ -76,9 +108,6 @@ export const initialData: Record<string, UserData> = {
       {
         type: "Grid",
         props: {
-          id: "Grid-c4cd99ae-8c5e-4cdb-87d2-35a639f5163e",
-          gap: 24,
-          numColumns: 3,
           items: [
             {
               type: "Card",
@@ -88,7 +117,12 @@ export const initialData: Record<string, UserData> = {
                   "Puck enables content teams to make changes to their content without a developer or breaking the UI.",
                 icon: "pen-tool",
                 mode: "flat",
-                layout: { grow: true, spanCol: 1, spanRow: 1, padding: "0px" },
+                layout: {
+                  grow: true,
+                  spanCol: 1,
+                  spanRow: 1,
+                  padding: "0px",
+                },
                 id: "Card-66ab42c9-d1da-4c44-9dba-5d7d72f2178d",
               },
             },
@@ -100,7 +134,12 @@ export const initialData: Record<string, UserData> = {
                   "Front-end developers can easily integrate their own components using a familiar React API.",
                 icon: "git-merge",
                 mode: "flat",
-                layout: { grow: true, spanCol: 1, spanRow: 1, padding: "0px" },
+                layout: {
+                  grow: true,
+                  spanCol: 1,
+                  spanRow: 1,
+                  padding: "0px",
+                },
                 id: "Card-0012a293-8ef3-4e7c-9d7c-7da0a03d97ae",
               },
             },
@@ -112,11 +151,19 @@ export const initialData: Record<string, UserData> = {
                   "Completely open-source, Puck is designed to be integrated into your existing React application.",
                 icon: "github",
                 mode: "flat",
-                layout: { grow: true, spanCol: 1, spanRow: 1, padding: "0px" },
+                layout: {
+                  grow: true,
+                  spanCol: 1,
+                  spanRow: 1,
+                  padding: "0px",
+                },
                 id: "Card-09efb3f3-f58d-4e07-a481-7238d7e57ad6",
               },
             },
           ],
+          id: "Grid-c4cd99ae-8c5e-4cdb-87d2-35a639f5163e",
+          gap: 24,
+          numColumns: 3,
         },
       },
       {
@@ -141,7 +188,9 @@ export const initialData: Record<string, UserData> = {
           align: "center",
           level: "2",
           text: "The numbers",
-          layout: { padding: "0px" },
+          layout: {
+            padding: "0px",
+          },
           size: "xxl",
           id: "Heading-1687296574110",
         },
@@ -159,7 +208,9 @@ export const initialData: Record<string, UserData> = {
         props: {
           align: "center",
           text: 'This page demonstrates Puck configured with a custom component library. This component is called "Stats", and contains some made-up numbers. You can configure any page by adding "/edit" onto the URL.',
-          layout: { padding: "0px" },
+          layout: {
+            padding: "0px",
+          },
           size: "m",
           id: "Text-1687284565722",
           color: "muted",
@@ -178,10 +229,22 @@ export const initialData: Record<string, UserData> = {
         type: "Stats",
         props: {
           items: [
-            { title: "Users reached", description: "20M+" },
-            { title: "Cost savings", description: "$1.5M" },
-            { title: "Another stat", description: "5M kg" },
-            { title: "Final fake stat", description: "15K" },
+            {
+              title: "Users reached",
+              description: "20M+",
+            },
+            {
+              title: "Cost savings",
+              description: "$1.5M",
+            },
+            {
+              title: "Another stat",
+              description: "5M kg",
+            },
+            {
+              title: "Final fake stat",
+              description: "15K",
+            },
           ],
           id: "Stats-1687297239724",
         },
@@ -200,7 +263,9 @@ export const initialData: Record<string, UserData> = {
           align: "center",
           level: "2",
           text: "Extending Puck",
-          layout: { padding: "0px" },
+          layout: {
+            padding: "0px",
+          },
           size: "xxl",
           id: "Heading-1687296184321",
         },
@@ -218,7 +283,9 @@ export const initialData: Record<string, UserData> = {
         props: {
           align: "center",
           text: "Puck can also be extended with plugins and headless CMS content fields, transforming Puck into the perfect tool for your Content Ops.",
-          layout: { padding: "0px" },
+          layout: {
+            padding: "0px",
+          },
           size: "m",
           id: "Text-1687296579834",
           color: "muted",
@@ -236,9 +303,6 @@ export const initialData: Record<string, UserData> = {
       {
         type: "Grid",
         props: {
-          gap: 24,
-          numColumns: 3,
-          id: "Grid-2da28e88-7b7b-4152-9da0-9f93f41213b6",
           items: [
             {
               type: "Card",
@@ -248,7 +312,12 @@ export const initialData: Record<string, UserData> = {
                   "Analyze the document structure and identify WCAG 2.1 issues with your heading hierarchy.",
                 icon: "align-left",
                 mode: "card",
-                layout: { grow: false, spanCol: 1, spanRow: 1, padding: "0px" },
+                layout: {
+                  grow: false,
+                  spanCol: 1,
+                  spanRow: 1,
+                  padding: "0px",
+                },
                 id: "Card-b0e8407d-9fbb-4e76-aa32-d32f655c11d3",
               },
             },
@@ -260,7 +329,12 @@ export const initialData: Record<string, UserData> = {
                   "Connect your components with an existing data source, like Strapi.js.",
                 icon: "feather",
                 mode: "card",
-                layout: { grow: false, spanCol: 1, spanRow: 1, padding: "0px" },
+                layout: {
+                  grow: false,
+                  spanCol: 1,
+                  spanRow: 1,
+                  padding: "0px",
+                },
                 id: "Card-f8ebd568-3a30-4099-a068-22cabae4691b",
               },
             },
@@ -272,7 +346,12 @@ export const initialData: Record<string, UserData> = {
                   "Create your own plugin to extend Puck for your use case using React.",
                 icon: "plug",
                 mode: "card",
-                layout: { grow: false, spanCol: 1, spanRow: 1, padding: "0px" },
+                layout: {
+                  grow: false,
+                  spanCol: 1,
+                  spanRow: 1,
+                  padding: "0px",
+                },
                 id: "Card-9c3b0acc-ee42-4a4a-8cc7-1b22d98493f1",
               },
             },
@@ -283,7 +362,12 @@ export const initialData: Record<string, UserData> = {
                 description: "Description",
                 icon: "Feather",
                 mode: "card",
-                layout: { grow: false, spanCol: 1, spanRow: 1, padding: "0px" },
+                layout: {
+                  grow: false,
+                  spanCol: 1,
+                  spanRow: 1,
+                  padding: "0px",
+                },
                 id: "Card-dbec4ae9-8208-49bf-8910-3347ff13d957",
               },
             },
@@ -294,7 +378,12 @@ export const initialData: Record<string, UserData> = {
                 description: "Description",
                 icon: "Feather",
                 mode: "card",
-                layout: { grow: false, spanCol: 1, spanRow: 1, padding: "0px" },
+                layout: {
+                  grow: false,
+                  spanCol: 1,
+                  spanRow: 1,
+                  padding: "0px",
+                },
                 id: "Card-e807464c-4974-4dbb-b1c9-989deabce58d",
               },
             },
@@ -305,11 +394,19 @@ export const initialData: Record<string, UserData> = {
                 description: "Description",
                 icon: "Feather",
                 mode: "card",
-                layout: { grow: false, spanCol: 1, spanRow: 1, padding: "0px" },
+                layout: {
+                  grow: false,
+                  spanCol: 1,
+                  spanRow: 1,
+                  padding: "0px",
+                },
                 id: "Card-3b4b7d53-2124-4d7a-a67e-36b24fd765b4",
               },
             },
           ],
+          gap: 24,
+          numColumns: 3,
+          id: "Grid-2da28e88-7b7b-4152-9da0-9f93f41213b6",
         },
       },
       {
@@ -326,7 +423,9 @@ export const initialData: Record<string, UserData> = {
           align: "center",
           level: "2",
           text: "Get started",
-          layout: { padding: "0px" },
+          layout: {
+            padding: "0px",
+          },
           size: "xxl",
           id: "Heading-1687299303766",
         },
@@ -344,7 +443,9 @@ export const initialData: Record<string, UserData> = {
         props: {
           align: "center",
           text: "Browse the Puck GitHub to get started, or try editing this page",
-          layout: { padding: "0px" },
+          layout: {
+            padding: "0px",
+          },
           size: "m",
           id: "Text-1687299305686",
           color: "muted",
@@ -361,12 +462,6 @@ export const initialData: Record<string, UserData> = {
       {
         type: "Flex",
         props: {
-          justifyContent: "center",
-          direction: "row",
-          gap: 24,
-          wrap: "wrap",
-          layout: { spanCol: 1, spanRow: 1, padding: "0px" },
-          id: "Flex-7d63d5ff-bd42-4354-b05d-681b16436fd6",
           items: [
             {
               type: "Button",
@@ -387,6 +482,16 @@ export const initialData: Record<string, UserData> = {
               },
             },
           ],
+          justifyContent: "center",
+          direction: "row",
+          gap: 24,
+          wrap: "wrap",
+          layout: {
+            spanCol: 1,
+            spanRow: 1,
+            padding: "0px",
+          },
+          id: "Flex-7d63d5ff-bd42-4354-b05d-681b16436fd6",
         },
       },
       {
@@ -398,8 +503,45 @@ export const initialData: Record<string, UserData> = {
         },
       },
     ],
-    root: { props: { title: "Puck Example" } },
-    zones: {},
+    zones: {
+      "Flex-7d63d5ff-bd42-4354-b05d-681b16436fd6:items": [],
+      "CustomFlex-e43ec132-8a64-4db6-a602-39b781f996ba:items": [
+        {
+          type: "Flex",
+          props: {
+            justifyContent: "start",
+            direction: "row",
+            gap: 24,
+            wrap: "wrap",
+            layout: {
+              spanCol: 1,
+              spanRow: 1,
+              padding: "0px",
+              grow: true,
+            },
+            id: "Flex-e3086946-8876-4f47-af16-00323adfebac",
+          },
+        },
+      ],
+      "Flex-e3086946-8876-4f47-af16-00323adfebac:items": [
+        {
+          type: "Text",
+          props: {
+            align: "left",
+            text: "Hello World",
+            size: "m",
+            color: "default",
+            layout: {
+              spanCol: 1,
+              spanRow: 1,
+              padding: "0px",
+              grow: false,
+            },
+            id: "Text-3619d6f0-e34d-48f6-ad4e-0393a61fb2b8",
+          },
+        },
+      ],
+    },
   },
   "/pricing": {
     content: [],

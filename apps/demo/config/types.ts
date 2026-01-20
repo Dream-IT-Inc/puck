@@ -12,6 +12,7 @@ import { TextProps } from "./blocks/Text";
 import { SpaceProps } from "./blocks/Space";
 
 import { RootProps } from "./root";
+import { CustomFlexProps } from "./blocks/CustomFlex";
 
 export type { RootProps } from "./root";
 
@@ -22,6 +23,7 @@ export type Components = {
   Hero: HeroProps;
   Heading: HeadingProps;
   Flex: FlexProps;
+  CustomFlex: CustomFlexProps;
   Logos: LogosProps;
   Stats: StatsProps;
   Template: TemplateProps;

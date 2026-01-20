@@ -13,13 +13,14 @@ import { Space } from "./blocks/Space";
 import Root from "./root";
 import { UserConfig } from "./types";
 import { initialData } from "./initial-data";
+import { CustomFlex } from "./blocks/CustomFlex";
 
 // We avoid the name config as next gets confused
 export const conf: UserConfig = {
   root: Root,
   categories: {
     layout: {
-      components: ["Grid", "Flex", "Space"],
+      components: ["Grid", "CustomFlex", "Flex", "Space"],
     },
     typography: {
       components: ["Heading", "Text"],
@@ -45,6 +46,7 @@ export const conf: UserConfig = {
     Template,
     Text,
     Space,
+    CustomFlex,
   },
 };
 
