@@ -1,5 +1,5 @@
 import { CSSProperties } from "react";
-import { Content, DragAxis } from "../../types";
+import { ComponentData, DragAxis } from "../../types";
 
 export type DropZoneProps = {
   zone: string;
@@ -9,4 +9,5 @@ export type DropZoneProps = {
   minEmptyHeight?: number;
   className?: string;
   collisionAxis?: DragAxis;
+  overrideItem?: (item: ComponentData) => ComponentData | null;
 };

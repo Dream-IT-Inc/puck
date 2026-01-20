@@ -58,6 +58,25 @@ const getRandomColor = () =>
 
 const RENDER_DEBUG = false;
 
+const composeOverrideItem = (
+  parentOverride?: DropZoneProps["overrideItem"],
+  childOverride?: DropZoneProps["overrideItem"]
+): DropZoneProps["overrideItem"] | undefined => {
+  if (!parentOverride && !childOverride) {
+    return childOverride;
+  }
+
+  return (item) => {
+    const childResult = childOverride ? childOverride(item) : item;
+
+    if (childResult === null) {
+      return null;
+    }
+
+    return parentOverride ? parentOverride(childResult) : childResult;
+  };
+};
+
 export type DropZoneDndData = {
   areaId?: string;
   depth: number;
@@ -509,10 +528,12 @@ const DropZoneRenderItem = ({
   config,
   item,
   metadata,
+  overrideItem,
 }: {
   config: Config;
   item: ComponentData;
   metadata: Metadata;
+  overrideItem?: DropZoneProps["overrideItem"];
 }) => {
   const Component = config.components[item.type];
 
@@ -528,13 +549,30 @@ const DropZoneRenderItem = ({
     [props]
   );
 
+  const renderDropZoneWithOverride = useCallback(
+    (dropZoneProps: DropZoneProps) => {
+      const composedOverride = composeOverrideItem(
+        overrideItem,
+        dropZoneProps.overrideItem
+      );
+
+      return (
+        <DropZoneRenderPure
+          {...dropZoneProps}
+          overrideItem={composedOverride}
+        />
+      );
+    },
+    [overrideItem]
+  );
+
   return (
     <DropZoneProvider key={props.id} value={nextContextValue}>
       <Component.render
         {...props}
         puck={{
           ...props.puck,
-          renderDropZone: DropZoneRenderPure,
+          renderDropZone: renderDropZoneWithOverride,
           metadata: { ...metadata, ...Component.metadata },
         }}
       />
@@ -547,7 +585,10 @@ export const DropZoneRenderPure = (props: DropZoneProps) => (
 );
 
 const DropZoneRender = forwardRef<HTMLDivElement, DropZoneProps>(
-  function DropZoneRenderInternal({ className, style, zone }, ref) {
+  function DropZoneRenderInternal(
+    { className, style, zone, overrideItem },
+    ref
+  ) {
     const ctx = useContext(dropZoneContext);
     const { areaId = "root" } = ctx || {};
     const { config, data, metadata } = useContext(renderContext);
@@ -577,13 +618,21 @@ const DropZoneRender = forwardRef<HTMLDivElement, DropZoneProps>(
       <div className={className} style={style} ref={ref}>
         {content.map((item) => {
           const Component = config.components[item.type];
+          const overriddenItem = overrideItem?.(item);
+
+          if (overriddenItem === null) {
+            return null;
+          }
+
+          const itemToRender = overriddenItem ?? item;
           if (Component) {
             return (
               <DropZoneRenderItem
-                key={item.props.id}
+                key={itemToRender.props.id}
                 config={config}
-                item={item}
+                item={itemToRender}
                 metadata={metadata}
+                overrideItem={overrideItem}
               />
             );
           }
