@@ -45,6 +45,11 @@
       "import": "./dist/rsc.mjs",
       "require": "./dist/rsc.js"
     },
+    "./render": {
+      "types": "./dist/render.d.ts",
+      "import": "./dist/render.mjs",
+      "require": "./dist/render.js"
+    },
     "./puck.css": "./dist/index.css",
     "./no-external.css": "./dist/no-external.css",
     "./dist/index.css": "./dist/index.css",
@@ -54,13 +59,16 @@
     "*": {
       "rsc": [
         "./dist/rsc.js"
+      ],
+      "render": [
+        "./dist/render.js"
       ]
     }
   },
   "license": "MIT",
   "scripts": {
     "lint": "eslint \"**/*.ts*\"",
-    "build": "rm -rf dist && tsup bundle/index.ts bundle/rsc.tsx bundle/no-external.ts",
+    "build": "rm -rf dist && tsup bundle/index.ts bundle/rsc.tsx bundle/no-external.ts bundle/render.ts",
     "test": "jest",
     "prepare": "cp ../../README.md . && yarn build",
     "postpublish": "rm README.md"
