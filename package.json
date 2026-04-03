@@ -39,5 +39,8 @@
   "version": "0.20.1",
   "engines": {
     "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "@tanstack/react-virtual": "^3.13.9"
   }
 }

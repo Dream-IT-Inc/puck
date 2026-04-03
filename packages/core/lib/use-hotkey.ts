@@ -32,6 +32,9 @@ const keys = [
   "x",
   "y",
   "z",
+  "delete",
+  "backspace",
+  "altRight",
 ] as const;
 
 type KeyStrict = (typeof keys)[number];
@@ -72,6 +75,9 @@ const keyCodeMap: KeyCodeMap = {
   KeyX: "x",
   KeyY: "y",
   KeyZ: "z",
+  Delete: "delete",
+  Backspace: "backspace",
+  AltRight: "altRight",
 };
 
 const useHotkeyStore = create<{
@@ -94,6 +100,12 @@ const useHotkeyStore = create<{
 
 export const monitorHotkeys = (doc: Document) => {
   const onKeyDown = (e: KeyboardEvent) => {
+    // If altGraphKey (Alt Right) is pressed, register altRight instead of mapping ControlRight to ctrl
+    if (e.getModifierState("AltGraph")) {
+      useHotkeyStore.getState().hold("altRight");
+      return;
+    }
+
     const key = keyCodeMap[e.code];
 
     if (key) {
@@ -110,9 +122,12 @@ export const monitorHotkeys = (doc: Document) => {
             ([key, value]) => value === !!(combo as KeyMap)[key]
           );
 
+        // Call hotkey with event; skip preventDefault if callback returns false to allow native input behavior.
         if (conditionMet) {
-          e.preventDefault();
-          cb();
+          const handled = cb(e);
+          if (handled !== false) {
+            e.preventDefault();
+          }
         }
       });
 
@@ -124,6 +139,12 @@ export const monitorHotkeys = (doc: Document) => {
   };
 
   const onKeyUp = (e: KeyboardEvent) => {
+    // Check if Alt Right (AltGraph) was released
+    if (!e.getModifierState("AltGraph") && e.code === "ControlRight") {
+      useHotkeyStore.getState().release("altRight");
+      return;
+    }
+
     const key = keyCodeMap[e.code];
 
     if (key) {
@@ -136,13 +157,18 @@ export const monitorHotkeys = (doc: Document) => {
     }
   };
 
-  const onVisibilityChanged = (e: Event) => {
+  const onVisibilityChanged = (_e: Event) => {
     // Reset keys when tab changes
     if (document.visibilityState === "hidden") {
       useHotkeyStore.getState().reset();
     }
   };
 
+  const onBlur = () => {
+    useHotkeyStore.getState().reset();
+  };
+
+  window.addEventListener("blur", onBlur);
   doc.addEventListener("keydown", onKeyDown);
   doc.addEventListener("keyup", onKeyUp);
   doc.addEventListener("visibilitychange", onVisibilityChanged);
@@ -151,6 +177,7 @@ export const monitorHotkeys = (doc: Document) => {
     doc.removeEventListener("keydown", onKeyDown);
     doc.removeEventListener("keyup", onKeyUp);
     doc.removeEventListener("visibilitychange", onVisibilityChanged);
+    window.removeEventListener("blur", onBlur);
   };
 };
 
