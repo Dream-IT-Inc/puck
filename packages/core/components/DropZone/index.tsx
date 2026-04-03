@@ -44,7 +44,7 @@ import { renderContext } from "../Render";
 import { useSlots } from "../../lib/use-slots";
 import { ContextSlotRender, SlotRenderPure } from "../SlotRender";
 import { expandNode } from "../../lib/data/flatten-node";
-import { useFieldTransforms } from "../../lib/field-transforms/use-field-transforms";
+import { useFieldTransformsTracked } from "../../lib/field-transforms/use-field-transforms-tracked";
 import { getInlineTextTransform } from "../../lib/field-transforms/default-transforms/inline-text-transform";
 import { getSlotTransform } from "../../lib/field-transforms/default-transforms/slot-transform";
 import { FieldTransforms } from "../../types/API/FieldTransforms";
@@ -227,7 +227,7 @@ const DropZoneChild = ({
     [plugins, userFieldTransforms]
   );
 
-  const transformedProps = useFieldTransforms(
+  const transformedProps = useFieldTransformsTracked(
     config,
     defaultedNode,
     combinedFieldTransforms,
