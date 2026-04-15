@@ -1,6 +1,6 @@
 "use client";
 
-import React, {
+import {
   createContext,
   ReactNode,
   useCallback,
@@ -20,6 +20,7 @@ import {
 import { useSlots } from "../../lib/use-slots";
 import { SlotRenderPure } from "../SlotRender/server";
 import { DropZoneProps } from "../DropZone/types";
+import { composeOverrideItem } from "../DropZone";
 
 // Lightweight render context — same shape as client Render's renderContext
 const renderContext = createContext<{
@@ -81,9 +82,13 @@ const DropZoneRenderItem = ({
   );
 
   const renderDropZone = useCallback(
-    (dropZoneProps: DropZoneProps) => (
-      <DropZoneRenderPure {...dropZoneProps} overrideItem={overrideItem} />
-    ),
+    (dropZoneProps: DropZoneProps) => {
+      const composedOverride = composeOverrideItem(
+        overrideItem,
+        dropZoneProps.overrideItem
+      );
+      return <DropZoneRenderPure {...dropZoneProps} overrideItem={composedOverride} />;
+    },
     [overrideItem]
   );
 

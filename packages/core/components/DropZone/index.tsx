@@ -60,7 +60,7 @@ const getRandomColor = () =>
 
 const RENDER_DEBUG = false;
 
-const composeOverrideItem = (
+export const composeOverrideItem = (
   parentOverride?: DropZoneProps["overrideItem"],
   childOverride?: DropZoneProps["overrideItem"]
 ): DropZoneProps["overrideItem"] | undefined => {
