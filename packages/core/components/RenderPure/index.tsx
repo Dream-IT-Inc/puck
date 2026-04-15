@@ -59,10 +59,12 @@ const DropZoneRenderItem = ({
   config,
   item,
   metadata,
+  overrideItem,
 }: {
   config: Config;
   item: ComponentData;
   metadata: Metadata;
+  overrideItem?: DropZoneProps["overrideItem"];
 }) => {
   const Component = config.components[item.type];
 
@@ -80,9 +82,9 @@ const DropZoneRenderItem = ({
 
   const renderDropZone = useCallback(
     (dropZoneProps: DropZoneProps) => (
-      <DropZoneRenderPure {...dropZoneProps} />
+      <DropZoneRenderPure {...dropZoneProps} overrideItem={overrideItem} />
     ),
-    []
+    [overrideItem]
   );
 
   return (
@@ -104,6 +106,7 @@ const DropZoneRenderPure = ({
   className,
   style,
   zone,
+  overrideItem,
 }: DropZoneProps) => {
   const ctx = useContext(dropZoneCtx);
   const { areaId = "root" } = ctx || {};
@@ -124,14 +127,22 @@ const DropZoneRenderPure = ({
     <div className={className} style={style}>
       {content.map((item) => {
         const Component = config.components[item.type];
+        const overriddenItem = overrideItem?.(item);
+
+        if (overriddenItem === null) {
+          return null;
+        }
+
+        const itemToRender = overriddenItem ?? item;
 
         if (Component) {
           return (
             <DropZoneRenderItem
-              key={item.props.id}
+              key={itemToRender.props.id}
               config={config}
-              item={item}
+              item={itemToRender}
               metadata={metadata}
+              overrideItem={overrideItem}
             />
           );
         }
